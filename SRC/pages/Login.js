@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
-import {Platform,Animated, StyleSheet, Text, View,Dimensions,Image,TouchableOpacity,Easing} from 'react-native';
+import {Platform,Animated, StyleSheet, Text, View,Dimensions,Image,TextInput,TouchableOpacity,Easing} from 'react-native';
+import { createSwitchNavigator, createAppContainer,createStackNavigator} from "react-navigation";
+import Card from './Card'
 let dim=Dimensions.get('window')
 
 
-export default class Login extends Component {
+ class Login extends Component {
+  static navigationOptions={
+    headerTransparent: true,
+   }
   constructor(props){
     super(props);
    
       this.animatedValue = new Animated.Value(-400)
-    
+    this.state={
+      text:''
+    }
     
   }
   componentDidMount () {
@@ -24,6 +31,16 @@ export default class Login extends Component {
         
       }
     ).start()
+  }
+  handellEmail=(text)=>{
+    this.setState({
+      email:text
+    })
+  }
+  handellPassword=(text)=>{
+    this.setState({
+      email:text
+    })
   }
  
   render() {
@@ -66,9 +83,9 @@ export default class Login extends Component {
             source={require('../asecct/email.png.png')}
             style={{marginTop:30}}
           />
-          
-            <Text style={styles.emailText}>Email</Text>
-          
+          <View style={{marginTop:10}}>
+            <TextInput style={styles.emailText}onChangeText={this.handellEmail} placeholder='Email'placeholderTextColor='#EAEDED'/>
+            </View>
         </Animated.View>
        
         <Animated.View style={[styles.password,{marginRight:movingMarginright,}]}>
@@ -77,11 +94,15 @@ export default class Login extends Component {
             style={{marginTop:30}}
           />
           
-            <Text style={styles.passwordText}>password</Text>
+          <View style={{marginTop:10}}>
+            <TextInput style={styles.emailText} onChangeText={this.handellPassword}placeholder='password'placeholderTextColor='#EAEDED'/>
+            </View>
         </Animated.View>
         
         <TouchableOpacity style={styles.button}><Text style={styles.textButton}>SINGIN</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Cards')}>
         <Text style={styles.forget}>Forget you password?</Text>
+        </TouchableOpacity>
         <Text style={styles.sign}>Dosent have an account? signup</Text>
       </View>
       </View>
@@ -90,6 +111,17 @@ export default class Login extends Component {
     );
   }
 }
+
+const AppNavigator=createStackNavigator(
+  {
+    Logins : Login,
+    Cards : Card
+  },
+  {
+    initialRouteName : 'Logins'
+  }
+);
+export default createAppContainer(AppNavigator);
 
 const styles = StyleSheet.create({
   container: {
@@ -131,7 +163,7 @@ const styles = StyleSheet.create({
   },
   emailText:
   {
-    marginTop:30,
+    marginTop:10,
     marginLeft:30,
     color:'#EAEDED'
   },

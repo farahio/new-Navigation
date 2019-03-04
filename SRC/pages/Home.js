@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet,Animated, Text, View,Dimensions,TextInput,Image,FlatList,TouchableOpacity,ScrollView} from 'react-native';
 import {createMaterialTopTabNavigator,createAppContainer} from 'react-navigation';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {data1} from '../Components/ComponentData1'
 import Signin from './Signin'
 

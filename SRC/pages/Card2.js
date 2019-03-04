@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform,Animated, StyleSheet, Text, View,Dimensions,Image,TextInput,TouchableOpacity,Easing} from 'react-native';
-import {createAppContainer,createMaterialTopTabNavigator} from "react-navigation";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {createAppContainer,createBottomTabNavigator} from "react-navigation";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Login from './Login'
 import Card from './Card'
 import Signin from './Signin'
@@ -25,11 +25,6 @@ import Home from './Home'
     }
 
     
-
-
-
-
-
     
         const styles = StyleSheet.create({
             container: {
@@ -37,39 +32,19 @@ import Home from './Home'
              backgroundColor:'green'
               
             },
+            imgicon:{
+              width: 30, 
+              height: 30,
+              borderRadius:50
+            }
         })
 
-        // const TabNavigator = createBottomTabNavigator(
-        //   {
-           
-           
-        //     Signins:Signin,
-        //     Homes:Home,
-        //     Card2:Card2
-            
-        //   },
-        //   {
-        //     initialRouteName:'Homes',
-        //     tabBarOptions: {
-        //       activeTintColor: '#e91e63',
-        //       inactiveTintColor:'white',
-        //       labelStyle: {
-        //         fontSize: 18,
-        //         marginBottom:10
-        //       },
-        //       style: {
-        //         backgroundColor: 'skyblue',
-        //       },
-        //     }
-        //   }
-        //   )
-        //   export default createAppContainer(TabNavigator);
-
-        const TabRouter = createMaterialTopTabNavigator({
+        
+        const TabRouter = createBottomTabNavigator({
           Card2: { 
              screen: Card2, 
              navigationOptions: {
-              tabBarLabel: ({focused, tintColor:color}) => (
+              tabBarIcon: ({tintColor:color}) => (
                 <Icon name="history" size={30} color={color} />
               )
              }
@@ -77,28 +52,32 @@ import Home from './Home'
           Home: { 
             screen: Home, 
             navigationOptions: {
-             tabBarLabel: ({focused, tintColor:color}) => (
+             tabBarIcon: ({tintColor:color}) => (
                <Icon name="home" size={30} color={color} />
              )
             }
          },
+      
           Signin: {
-             screen: Signin,
+            screen: Signin,
+          
              navigationOptions: {
-                tabBarLabel: ({focused, tintColor:color}) => (
-                  <Icon name="message-text-outline" size={20} color={color} />
-                )
-             }
-          }},
+              tabBarIcon: ({tintColor:color}) => (
+                <Image  style={styles.imgicon} source={require('../asecct/book4.png')}/>)
+
+                
+                }
+          }
+        },
           { 
             tabBarOptions: {
-               showIcon: false, 
-                                
-               showLabel: true,
-               activeTintColor: '#FFF',
-               labelStyle: {},
+              showLabel:false,
+               style:{
+               backgroundColor:'bluesky' } ,               
+              
+               activeTintColor: 'red',
+         
                
-             
           }
         }
           )

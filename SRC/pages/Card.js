@@ -31,7 +31,7 @@ export default class Card extends Component {
         const styles = StyleSheet.create({
             container: {
               flex: 1,
-             backgroundColor:'skyblue'
+             backgroundColor:'#206bec'
               
             },
         })

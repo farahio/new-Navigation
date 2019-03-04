@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Dimensions,Image,TouchableOpacity} from 'react-native';
+
 let dim=Dimensions.get('window')
 
 
@@ -10,7 +11,7 @@ export default class Signin extends Component {
       <Text>
             hello
       </Text>
-    
+     
       </View>
     );
   }

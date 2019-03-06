@@ -6,6 +6,7 @@ import Login from './Login'
 import Card from './Card'
 import Signin from './Signin'
 import Home from './Home'
+import Book from './Book'
 
 
  class Card2 extends Component {
@@ -57,6 +58,14 @@ import Home from './Home'
              )
             }
          },
+         Book: { 
+          screen: Book, 
+          navigationOptions: {
+           tabBarIcon: ({tintColor:color}) => (
+             <Icon name="certificate" size={30} color={color} />
+           )
+          }
+       },
       
           Signin: {
             screen: Signin,

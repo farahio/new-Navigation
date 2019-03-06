@@ -4,17 +4,25 @@ import {createMaterialTopTabNavigator,createAppContainer} from 'react-navigation
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {data1} from '../Components/ComponentData1'
 import Signin from './Signin'
+import{connect} from 'react-redux'
+import{fetchProducts} from '../Services/actionUser'
+import reducer from '../Services/reducerUser'
 
 let dim=Dimensions.get('window').width
 
 
- export default class Home extends Component {
+ class Home extends Component {
  constructor(props){
    super(props)
    this.state={
     scrollX :new Animated.Value(0)
    }
  }
+
+ componentDidMount() {
+  this.props.fetchProducts()
+}
+
   render() {
     let position = Animated.divide(this.state.scrollX,dim);
     return (
@@ -82,8 +90,38 @@ let dim=Dimensions.get('window').width
     
      
       <View style={styles.viewContact}>
+       {/* <ScrollView> */}
+           
+       <View style={styles.User}>
+                <View style={styles.viewTextUser}>
+                  <Text style={styles.Popular}>Popular</Text>
+                  <View style={{flexDirection:'row'}}>
+                  <Text style={styles.More}>More</Text>
+                 <Icon name="arrow-right" size={18} color='white' style={styles.Icon2}/>
+                  </View>
+                </View>
+                <View style={styles.ViewImgUser}>
+                
+
+                   
+                <FlatList
+          data={this.props.result.item}
+          horizontal={true}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+         
+              <Image source={{uri: item.volumeInfo.imageLinks.thumbnail}} style={styles.userImage} />
+
+          )}
+        />
+                </View>
+                </View>
+              </View>
+                <View style={styles.Book}></View>
+            
+    {/* </ScrollView> */}
       </View>
-      </View>
+      
     );
   }
 }
@@ -109,7 +147,7 @@ const styles = StyleSheet.create({
   },
   viewContact:{
     flex:7,
-    backgroundColor:'pink'
+  
   },
   Search:{
     width:320,
@@ -142,8 +180,8 @@ const styles = StyleSheet.create({
   },
   viewText:{
     width:360,
-    height:30,
-    
+    height:40,
+    marginTop:10,
     justifyContent:'center',
     
   },
@@ -171,9 +209,65 @@ const styles = StyleSheet.create({
      width:10, 
      backgroundColor: 'red',
       borderRadius: 5,
+    },
+    User:
+    {
+      flex:6,
+    
+    },
+    Book:{
+      flex:1,
+      backgroundColor:'#32C439'
+    },
+    viewTextUser:{
+      width:370,
+      height:40,
+      marginLeft:25,
+     
+      justifyContent:'space-between',
+      flexDirection:'row',
+     
+    },
+    ViewImgUser:{
+      flex:3,
+      marginTop:10,
+      justifyContent:'center',
+      
+    },
+    Popular:{
+      marginTop:10,
+      fontSize:20,
+      color:'white',
+      fontWeight:'500'
+    },
+    More:{
+      marginTop:15,
+      fontSize:16,
+      color:'white'
+    },
+    Icon2:{
+      marginTop:18,
+      marginLeft:10,
+      
+    },
+    imgUser:{
+      width:160,
+      height:200,
+      backgroundColor:'#ED82E0',
+      borderRadius:15,
+      marginLeft:10
+    },
+    userImage:{
+      width:160,
+      height:200,
+      borderRadius:15,
+      marginLeft:10
     }
  
- 
 });
-
-
+const mapStateToProps = (state) =>{
+  return{
+    result:state
+  }
+}
+export default  connect(mapStateToProps,{fetchProducts})(Home);
